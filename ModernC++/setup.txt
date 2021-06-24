@@ -1,0 +1,115 @@
+		Set up your Project using c-make
+
+1. touch CMakeLists.txt
+2. mkdir src
+3. mkdir build
+	2.1 open CMakeLists.txt
+		"
+			project(cmake_test_project)
+			cmake_minimum_required(VERSION 3.0) 
+		"
+4. /build $ cmake .. //cmake search for CMakeList.txt which is in parent folder
+5. /CMakeLists.txt (add)
+		"
+			message(STATUS "!!!!${ PROJECT_SOURCE_DIR  }") 
+			add_subdirectory(${PROJECT_SOURCE_DIR}/src) 
+		"
+6. /build $cmake .. [show an error src doesn't contain and CMakeLists File]
+7. /src touch CMakeLists.txt
+8. /src/CMakeLists.txt
+		"
+			add_executable(bin_main main.cpp) //bin_main is binary executable file
+		" 
+9. /src/main.cpp
+		"
+			#include<iostream>
+			int main(){
+				std::cout<<"Hello World";
+				return 0;
+			}
+		"
+10. build/ $Cmake ..
+11. build/ make //show status of how much you left to setup project in percentage
+12. Congratulation we create all boiler plates and linking file
+	message are looks like => "
+		[ 50%] Building CXX object src/CMakeFiles/bin_main.dir/main.cpp.o
+		[100%] Linking CXX executable bin_main 
+		[100%] Built target bin_main
+	"
+13. Executable file inside build/src/bin_main
+14. Don't Track build folder if you use any version control
+
+
+			ADD Library
+15. src/ [ We make header File inside src/ ]
+16. src/ vim hello.h
+		"
+			#pragma once //use for it include only one time in main.cpp
+			#include<iostream.h>
+			void Printhello(){
+				std::cout<<"Function call Sucessfull";
+			}
+		"
+16.1. src/main.cpp
+			"
+			#include"hello.h"
+			int main(){
+				Printhello();
+				return 0;
+			}
+			" 
+17. build/ $cmake ..
+18. build/ make
+19. build/src/ $./bin_main
+20. if our project have multiple headers in different subdir then we specify path of header inside CMakeLists.txt[root Cmake not src Cmake]
+			"
+				project(cmake_test_project)
+				cmake_minimum_required(VERSION 3.0)
+				message(STATUS "!!!!${PROJECT_SOURCE_DIR}")
+				include_directories(${PROJECT_SOURCE_DIR}/src)// if you have multiple headers in different folder then
+				include_directories(${PROJECT_SOURCE_DIR}/src
+						    ${PROJECT_SOURCE_DIR}/src
+						)
+
+			
+			ADD Libraries
+21. every header dir contain two files (.h & .cpp)  where inside .h all decelatation and .cpp have all defination
+ 
+22. src/hello.cpp
+		"
+			#include"hello.h"
+			void Printhello(){
+				std::cout<<"Call Sucessfull";
+				}
+		"
+23. src/hello.h
+		"
+			#pragma once
+			#include<iostream>
+			void Printhello();
+		"
+24. now we create header and its cpp. we tell cmake we use header and its cpp
+25. src/CMakeLists.txt
+		"
+			add_library(hello hello.cpp)
+			add_executable(bin_main main.cpp)
+			target_link_libraries(bin_main hello)
+		" 
+26. Build your Project again
+27. IF you have multiple library then src/CMakeLists.txt looks like
+		"
+			add_library(hello hello.cpp)
+			add_library(lib lib.cpp)
+			add_executable(bin_main main.cpp)
+			target_link_libraries(bin_main hello lib)
+28. Build it again
+
+29. There Are two type of libraries in C
+	29.1. Static [if we move our code then library code is stuck inside your main binary object](.o)
+	29.2. Dynamic [if we move our code then binary object always looking for library](.so)
+30. Bydefault Static Library we generate for dynamic library we add SHARED inside CMAKELIST.txt
+		"
+			add_library(hello SHARED hello.cpp)
+			add_executable(bin_main main.cpp)
+			target_link_libraries(bin_main hello)
+		"
