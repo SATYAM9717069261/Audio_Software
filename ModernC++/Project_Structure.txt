@@ -69,3 +69,17 @@
 2 directories, 6 files
 
 					Rebuild => /build/ $cmake; make
+.
+├── build
+├── CMakeLists.txt
+├── Project_Structure.txt
+├── setup.txt
+├── src
+│   ├── CMakeLists.txt
+│   ├── hello.cpp
+│   ├── hello.h
+│   └── main.cpp
+└── tests
+    └── CMakeLists.txt
+
+3 directories, 8 files

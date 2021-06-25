@@ -113,3 +113,33 @@
 			add_executable(bin_main main.cpp)
 			target_link_libraries(bin_main hello)
 		"
+
+				ADD Testing (we use Google testing enviroment/framework)
+
+
+
+
+
+
+
+			Add Google Test in Projects 
+
+31. install libgtest-dev using sudo
+32. all google file are store in /usr/src/gtest/
+33. mkdir tests
+34. CMakeLists.txt
+	"//add at the end of file
+		enable_testing()
+		add_subdirectory(${PROJECT_SOURCE_DIR}/tests)
+	"
+35. tests/touch CMakeLists.txt
+		"
+			add_subdirectory(/usr/src/gtest
+					${PROJECT_BINARY_DIR}/gtests)
+			include(CTest)
+		"		
+36. Build it..		
+37. Now add CTest inside Project and use it
+38. tests/touch test_blah.cpp
+		
+ 
