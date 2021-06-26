@@ -141,5 +141,141 @@
 36. Build it..		
 37. Now add CTest inside Project and use it
 38. tests/touch test_blah.cpp
+	"
+		#include<gtest/gtest.h>
+		#include"blah.h"
+		TEST(TestBlah,OutputTest){
+			EXPECT_EQ(1,Sum());
+		}
+
+	"
+39. src/touch blah.h
+	"	
+		#pragma once
+		#include<iostrem>
+		int Sum(int a, int b);
+	"
+40. src/touch blah.cpp
+	"
+		#include"blah.h"
+		int Sum(int a, int b){
+			return a+b;
+		}
+	"
+41. Now we link your blah library to test.
+42. tests/vim MakeLists.txt
+		"
+			add_subdirectory(/usr/src/gtest
+			${PROJECT_BINARY_DIR}/gtests)
+			include(CTest)
+			add_executable(test_blah test_blah.cpp)
+			target_link_libraries(test_blah blah gtest gtest_main)
+			add_test(test_blah tests/test_blah)
+		"	
+43. Now Build it using cmake and make
+44 					Now We have One more Dir inside build (GTEST)  
+.
+├── build
+│   ├── bin
+│   ├── CMakeFiles
+│   │   ├── 3.16.3
+│   │   │   ├── CompilerIdC
+│   │   │   │   └── tmp
+│   │   │   └── CompilerIdCXX
+│   │   │       └── tmp
+│   │   └── CMakeTmp
+│   ├── gtests
+│   │   └── CMakeFiles
+│   │       ├── gtest.dir
+│   │       │   └── src
+│   │       └── gtest_main.dir
+│   │           └── src
+│   ├── lib
+│   ├── src
+│   │   └── CMakeFiles
+│   │       ├── bin_main.dir
+│   │       ├── blah.dir
+│   │       └── hello.dir
+│   ├── Testing
+│   │   └── Temporary
+│   └── tests
+│       └── CMakeFiles
+│           ├── ContinuousBuild.dir
+│           ├── ContinuousConfigure.dir
+│           ├── ContinuousCoverage.dir
+│           ├── Continuous.dir
+│           ├── ContinuousMemCheck.dir
+│           ├── ContinuousStart.dir
+│           ├── ContinuousSubmit.dir
+│           ├── ContinuousTest.dir
+│           ├── ContinuousUpdate.dir
+│           ├── ExperimentalBuild.dir
+│           ├── ExperimentalConfigure.dir
+│           ├── ExperimentalCoverage.dir
+│           ├── Experimental.dir
+│           ├── ExperimentalMemCheck.dir
+│           ├── ExperimentalStart.dir
+│           ├── ExperimentalSubmit.dir
+│           ├── ExperimentalTest.dir
+│           ├── ExperimentalUpdate.dir
+│           ├── NightlyBuild.dir
+│           ├── NightlyConfigure.dir
+│           ├── NightlyCoverage.dir
+│           ├── Nightly.dir
+│           ├── NightlyMemCheck.dir
+│           ├── NightlyMemoryCheck.dir
+│           ├── NightlyStart.dir
+│           ├── NightlySubmit.dir
+│           ├── NightlyTest.dir
+│           ├── NightlyUpdate.dir
+│           └── test_blah.dir
+├── src
+└── tests
+
+		56 directories
+
+46. One more Dir we have test/
+				See YOUR TEST 
+47. build/test/{executable file In my case we have test_blah} Name test_blah is specify inside CMAKE File
+48 Execute it.
+
+Running main() from /usr/src/gtest/src/gtest_main.cc
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from TestBlah
+[ RUN      ] TestBlah.OutputTest
+[       OK ] TestBlah.OutputTest (0 ms)
+[----------] 1 test from TestBlah (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+
+
+
+                                    Name Space 
+
+49. Don't Use namespace std in hader file because it allow all function use inside user program. If user want to use own cout function inside own program than compiler confuse which one you wants to use
+50. #include<iostream>
+	usig namespace std; // don't use like that
+51 #include<iostream>
+	using namespace std:cout
+	using namespace std::endl // we use only two of methods from std
 		
+		OR
+52. std::cout<<""; // use like that 
+
+53. Don't hard Code any Variable 
+54. Declare an nameless namespace on top of cpp file that namespace variable is only use with in cpp file
+55. namespace{
+		const int max=99999;
+		const int min=0;
+	}
+
+				STRUCT
+
+56. all variable in struct is public, if you define an function in struct it became automatic class
+57. There is One difference between struct and class , In Struct all of things are public but in class we have (private public , Protected)
+58. If you want return more than one data from function use struct because struct store multiple data on it.
+
  
